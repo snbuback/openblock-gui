@@ -470,7 +470,7 @@ Blockly.Python.event_whenmicropythonbegin = function () {
 const stockControlWait = Blockly.Python.control_wait;
 Blockly.Python.control_wait = function (block) {
     const rootType = block.getRootBlock().type;
-    if (rootType === 'event_whenmicropythonbegin') {
+    if (rootType.indexOf('event_whenmicrobit') !== 0) {
         const arg0 = Blockly.Python.valueToCode(block, 'DURATION', Blockly.Python.ORDER_FUNCTION_CALL);
         Blockly.Python.imports_.time = 'import time';
         return `time.sleep(${arg0})\n`;
@@ -481,7 +481,7 @@ Blockly.Python.control_wait = function (block) {
 Blockly.Python.control_wait_until = function (block) {
     const argument = Blockly.Python.valueToCode(block, 'CONDITION',
         Blockly.Python.ORDER_UNARY_POSTFIX) || 'False';
-    if (block.getRootBlock().type === 'event_whenmicropythonbegin') {
+    if (block.getRootBlock().type.indexOf('event_whenmicrobit') !== 0) {
         Blockly.Python.imports_.time = 'import time';
         return `while not ${argument}:\n${Blockly.Python.INDENT}time.sleep_ms(10)\n`;
     }
