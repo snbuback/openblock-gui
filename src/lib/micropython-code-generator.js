@@ -19,6 +19,7 @@
 
 
 import ScratchBlocks from 'openblock-blocks';
+import 'openblock-blocks/arduino_compressed';
 import 'openblock-blocks/python_compressed';
 
 const Blockly = ScratchBlocks;
@@ -455,14 +456,11 @@ Blockly.Python.microPython_system_systemRestart = function () {
 /**
  * MicroPython begin hat. main.py runs at boot, so the stack is emitted as
  * top-level code; the generic scrub_ helper appends the connected blocks.
- * @param {object} block - the hat block.
  * @returns {string} - code for the hat block.
  */
-Blockly.Python.event_whenmicropythonbegin = function (block) {
-    const nextBlock = block.nextConnection && block.nextConnection.targetBlock();
-    if (!nextBlock) {
-        return 'pass\n';
-    }
+Blockly.Python.event_whenmicropythonbegin = function () {
+    // main.py is executed at boot. Return an empty string and let scrub_
+    // append the blocks connected to this hat.
     return '';
 };
 
