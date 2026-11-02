@@ -132,6 +132,7 @@ class LibraryItem extends React.PureComponent {
                 author={this.props.author}
                 bluetoothRequired={this.props.bluetoothRequired}
                 serialportRequired={this.props.serialportRequired}
+                webreplRequired={this.props.webreplRequired}
                 collaborator={this.props.collaborator}
                 description={this.props.description}
                 deviceId={this.props.deviceId}
@@ -173,6 +174,7 @@ LibraryItem.propTypes = {
     author: PropTypes.string,
     bluetoothRequired: PropTypes.bool,
     serialportRequired: PropTypes.bool,
+    webreplRequired: PropTypes.bool,
     collaborator: PropTypes.string,
     description: PropTypes.oneOfType([
         PropTypes.string,

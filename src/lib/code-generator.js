@@ -1,5 +1,6 @@
 import 'openblock-blocks/arduino_compressed';
 import 'openblock-blocks/python_compressed';
+import './micropython-code-generator';
 
 import {DeviceType} from './device';
 

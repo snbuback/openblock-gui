@@ -394,6 +394,82 @@ const deviceData = [
         helpLink: 'https://wiki.openblock.cc/general-hardware-guidelines/boards/esp32s3'
     },
     {
+        name: 'ESP32 (MicroPython)',
+        deviceId: 'microPythonEsp32',
+        manufactor: 'espressif',
+        learnMore: 'https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/index.html',
+        type: DeviceType.microPython,
+        iconURL: esp32IconURL,
+        description: (
+            <FormattedMessage
+                defaultMessage="Program ESP32 with MicroPython over WiFi using WebREPL."
+                description="Description for the esp32 micropython device"
+                id="gui.device.microPythonEsp32.description"
+            />
+        ),
+        featured: true,
+        disabled: false,
+        bluetoothRequired: false,
+        serialportRequired: false,
+        webreplRequired: true,
+        defaultBaudRate: '115200',
+        internetConnectionRequired: true,
+        launchPeripheralConnectionFlow: true,
+        useAutoScan: false,
+        connectionIconURL: esp32ConnectionIconURLL,
+        connectionSmallIconURL: esp32ConnectionSmallIconURL,
+        connectingMessage: (
+            <FormattedMessage
+                defaultMessage="Connecting over WiFi"
+                description="Message to help people connect to their device over WiFi."
+                id="gui.device.wifiConnectingMessage"
+            />
+        ),
+        programMode: ['upload', 'realtime'],
+        defaultProgramMode: 'upload',
+        programLanguage: ['block', 'microPython'],
+        tags: ['microPython'],
+        helpLink: 'https://wiki.openblock.cc/general-hardware-guidelines/boards/esp32'
+    },
+    {
+        name: 'ESP32-S3 (MicroPython)',
+        deviceId: 'microPythonEsp32S3',
+        manufactor: 'espressif',
+        learnMore: 'https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32s3/index.html',
+        type: DeviceType.microPython,
+        iconURL: esp32S3IconURL,
+        description: (
+            <FormattedMessage
+                defaultMessage="Program ESP32-S3 with MicroPython over WiFi using WebREPL."
+                description="Description for the esp32-s3 micropython device"
+                id="gui.device.microPythonEsp32S3.description"
+            />
+        ),
+        featured: true,
+        disabled: false,
+        bluetoothRequired: false,
+        serialportRequired: false,
+        webreplRequired: true,
+        defaultBaudRate: '115200',
+        internetConnectionRequired: true,
+        launchPeripheralConnectionFlow: true,
+        useAutoScan: false,
+        connectionIconURL: esp32S3ConnectionIconURLL,
+        connectionSmallIconURL: esp32S3ConnectionSmallIconURL,
+        connectingMessage: (
+            <FormattedMessage
+                defaultMessage="Connecting over WiFi"
+                description="Message to help people connect to their device over WiFi."
+                id="gui.device.wifiConnectingMessage"
+            />
+        ),
+        programMode: ['upload', 'realtime'],
+        defaultProgramMode: 'upload',
+        programLanguage: ['block', 'microPython'],
+        tags: ['microPython'],
+        helpLink: 'https://wiki.openblock.cc/general-hardware-guidelines/boards/esp32s3'
+    },
+    {
         name: 'NodeMCU',
         deviceId: 'arduinoEsp8266NodeMCU',
         manufactor: 'espressif',

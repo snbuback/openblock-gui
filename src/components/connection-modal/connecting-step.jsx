@@ -8,6 +8,7 @@ import Dots from './dots.jsx';
 
 import bluetoothIcon from './icons/bluetooth-white.svg';
 import usbIcon from './icons/usb-white.svg';
+import wifiIcon from '../library-item/internet-connection.svg';
 import closeIcon from '../close-button/icon--close.svg';
 
 import styles from './connection-modal.css';
@@ -21,16 +22,21 @@ const ConnectingStep = props => (
                         className={styles.peripheralActivityIcon}
                         src={props.connectionIconURL}
                     />
-                    {props.isSerialport ? (
+                    {props.isWebrepl ? (
                         <img
                             className={styles.bluetoothConnectingIcon}
-                            src={usbIcon}
+                            src={wifiIcon}
                         />) :
-                        (
+                        props.isSerialport ? (
                             <img
                                 className={styles.bluetoothConnectingIcon}
-                                src={bluetoothIcon}
-                            />)}
+                                src={usbIcon}
+                            />) :
+                            (
+                                <img
+                                    className={styles.bluetoothConnectingIcon}
+                                    src={bluetoothIcon}
+                                />)}
                 </div>
             </Box>
         </Box>
@@ -72,6 +78,7 @@ ConnectingStep.propTypes = {
     connectingMessage: PropTypes.node.isRequired,
     connectionIconURL: PropTypes.string.isRequired,
     isSerialport: PropTypes.bool,
+    isWebrepl: PropTypes.bool,
     onDisconnect: PropTypes.func
 };
 

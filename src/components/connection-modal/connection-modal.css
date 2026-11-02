@@ -475,3 +475,63 @@
 .error-dot {
     background: $error-primary;
 }
+
+.wifi-form {
+    padding: 1rem 1rem 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.wifi-row {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.75rem;
+}
+
+.wifi-port-row {
+    width: 110px;
+}
+
+.wifi-label {
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+}
+
+.wifi-input {
+    border: 1px solid $ui-black-transparent;
+    border-radius: 0.25rem;
+    padding: 0.5rem;
+    font-size: 0.875rem;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: $text-primary;
+}
+
+.wifi-input:focus {
+    outline: none;
+    border-color: $motion-primary;
+}
+
+.wifi-remember {
+    display: flex;
+    align-items: center;
+    font-size: 0.75rem;
+    color: $text-primary;
+    margin-bottom: 0.75rem;
+}
+
+.wifi-remember input {
+    margin-right: 0.5rem;
+}
+
+.wifi-note {
+    font-size: 0.75rem;
+    color: $text-primary;
+    opacity: 0.75;
+    margin-bottom: 0.75rem;
+}
+
+.wifi-error {
+    font-size: 0.75rem;
+    color: $error-primary;
+    margin-bottom: 0.75rem;
+}

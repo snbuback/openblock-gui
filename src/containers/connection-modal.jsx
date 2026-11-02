@@ -7,6 +7,7 @@ import analytics from '../lib/analytics';
 import {connect} from 'react-redux';
 import {closeConnectionModal} from '../reducers/modals';
 import {setConnectionModalPeripheralName, setListAll} from '../reducers/connection-modal';
+import {saveWebReplConfig} from '../lib/webrepl-connection';
 
 class ConnectionModal extends React.Component {
     constructor (props) {
@@ -27,6 +28,7 @@ class ConnectionModal extends React.Component {
             peripheralName: null,
             errorMessage: null
         };
+        this._lastConnection = null;
     }
     componentDidMount () {
         this.props.vm.on('PERIPHERAL_CONNECTED', this.handleConnected);
@@ -41,8 +43,17 @@ class ConnectionModal extends React.Component {
             phase: PHASES.scanning
         });
     }
-    handleConnecting (peripheralId, peripheralName) {
-        if (this.props.isRealtimeMode) {
+    handleConnecting (peripheralId, peripheralName, peripheralConfig) {
+        const isWebrepl = this.state.device && this.state.device.webreplRequired;
+        if (isWebrepl) {
+            this._lastConnection = {peripheralConfig: peripheralConfig};
+            this.props.vm.connectPeripheral(
+                this.props.deviceId,
+                peripheralId,
+                parseInt(this.props.baudrate, 10),
+                peripheralConfig
+            );
+        } else if (this.props.isRealtimeMode) {
             this.props.vm.connectPeripheral(this.props.deviceId, peripheralId);
         } else {
             this.props.vm.connectPeripheral(this.props.deviceId, peripheralId, parseInt(this.props.baudrate, 10));
@@ -77,7 +88,15 @@ class ConnectionModal extends React.Component {
     }
     handleError (err) {
         // Assume errors that come in during scanning phase are the result of not
-        // having scratch-link installed.
+        // having scratch-link installed. WebREPL has no scan phase, so show
+        // the error form instead of the USB/Bluetooth guidance.
+        if ((this.state.phase === PHASES.scanning && this.state.device && this.state.device.webreplRequired)) {
+            this.setState({
+                phase: PHASES.error,
+                errorMessage: err.message
+            });
+            return;
+        }
         if (this.state.phase === PHASES.scanning || this.state.phase === PHASES.unavailable) {
             this.setState({
                 phase: PHASES.unavailable
@@ -95,6 +114,9 @@ class ConnectionModal extends React.Component {
         }
     }
     handleConnected () {
+        if (this.state.device && this.state.device.webreplRequired && this._lastConnection) {
+            saveWebReplConfig(this.props.deviceId, this._lastConnection.peripheralConfig);
+        }
         this.setState({
             phase: PHASES.connected
         });
@@ -121,6 +143,7 @@ class ConnectionModal extends React.Component {
                 connectionSmallIconURL={this.state.device && this.state.device.connectionSmallIconURL}
                 errorMessage={this.state.errorMessage}
                 isSerialport={this.state.device && this.state.device.serialportRequired}
+                isWebrepl={this.state.device && this.state.device.webreplRequired}
                 isListAll={this.props.isListAll}
                 connectionTipIconURL={this.state.device && this.state.device.connectionTipIconURL}
                 deviceId={this.props.deviceId}

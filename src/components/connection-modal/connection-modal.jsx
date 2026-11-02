@@ -7,6 +7,7 @@ import Modal from '../../containers/modal.jsx';
 
 import ScanningStep from '../../containers/scanning-step.jsx';
 import AutoScanningStep from '../../containers/auto-scanning-step.jsx';
+import WifiStep from '../../containers/wifi-step.jsx';
 import ConnectingStep from './connecting-step.jsx';
 import ConnectedStep from './connected-step.jsx';
 import ErrorStep from './error-step.jsx';
@@ -33,8 +34,11 @@ const ConnectionModalComponent = props => (
         onRequestClose={props.onCancel}
     >
         <Box className={styles.body}>
-            {props.phase === PHASES.scanning && !props.useAutoScan && <ScanningStep {...props} />}
-            {props.phase === PHASES.scanning && props.useAutoScan && <AutoScanningStep {...props} />}
+            {props.phase === PHASES.scanning && props.isWebrepl && <WifiStep {...props} />}
+            {props.phase === PHASES.scanning && !props.useAutoScan && !props.isWebrepl &&
+                <ScanningStep {...props} />}
+            {props.phase === PHASES.scanning && props.useAutoScan && !props.isWebrepl &&
+                <AutoScanningStep {...props} />}
             {props.phase === PHASES.connecting && <ConnectingStep {...props} />}
             {props.phase === PHASES.connected && <ConnectedStep {...props} />}
             {props.phase === PHASES.error && <ErrorStep {...props} />}
@@ -50,6 +54,7 @@ ConnectionModalComponent.propTypes = {
     name: PropTypes.node,
     onCancel: PropTypes.func.isRequired,
     onHelp: PropTypes.func.isRequired,
+    isWebrepl: PropTypes.bool,
     phase: PropTypes.oneOf(Object.keys(PHASES)).isRequired,
     title: PropTypes.string.isRequired,
     useAutoScan: PropTypes.bool.isRequired

@@ -80,11 +80,12 @@ class LibraryItemComponent extends React.PureComponent {
                     <span className={styles.featuredDescription}>{this.props.description}</span>
                 </div>
                 {this.props.bluetoothRequired || this.props.serialportRequired ||
-                    this.props.internetConnectionRequired || this.props.collaborator || this.props.manufactor ? (
+                    this.props.webreplRequired || this.props.internetConnectionRequired ||
+                    this.props.collaborator || this.props.manufactor ? (
                         <div className={styles.featuredExtensionMetadataFirstRow}>
                             <div className={styles.featuredExtensionRequirement}>
                                 {this.props.bluetoothRequired || this.props.serialportRequired ||
-                                    this.props.internetConnectionRequired ? (
+                                    this.props.webreplRequired || this.props.internetConnectionRequired ? (
                                         <div>
                                             <div>
                                                 <FormattedMessage
@@ -101,6 +102,9 @@ class LibraryItemComponent extends React.PureComponent {
                                                 ) : null}
                                                 {this.props.serialportRequired ? (
                                                     <img src={serialportIconURL} />
+                                                ) : null}
+                                                {this.props.webreplRequired ? (
+                                                    <img src={internetConnectionIconURL} />
                                                 ) : null}
                                                 {this.props.internetConnectionRequired ? (
                                                     <img src={internetConnectionIconURL} />
@@ -405,6 +409,7 @@ LibraryItemComponent.propTypes = {
     programMode: PropTypes.arrayOf(PropTypes.string),
     programLanguage: PropTypes.arrayOf(PropTypes.string),
     serialportRequired: PropTypes.bool,
+    webreplRequired: PropTypes.bool,
     showPlayButton: PropTypes.bool,
     version: PropTypes.string
 };

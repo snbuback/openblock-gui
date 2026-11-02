@@ -273,6 +273,7 @@ class LibraryComponent extends React.Component {
                             author={dataItem.author}
                             bluetoothRequired={dataItem.bluetoothRequired}
                             serialportRequired={dataItem.serialportRequired}
+                            webreplRequired={dataItem.webreplRequired}
                             programMode={dataItem.programMode}
                             programLanguage={dataItem.programLanguage}
                             collaborator={dataItem.collaborator}
