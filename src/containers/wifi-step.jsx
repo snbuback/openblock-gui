@@ -15,12 +15,12 @@ class WifiStep extends React.Component {
             'handleToggleRemember',
             'handleConnect'
         ]);
-        const saved = loadWebReplConfig(props.deviceId);
+        const saved = props.initialConfig || loadWebReplConfig(props.deviceId);
         this.state = {
-            host: saved.host,
-            port: saved.port,
-            password: saved.password,
-            remember: saved.remember,
+            host: saved.host || '',
+            port: String(saved.port || '8266'),
+            password: saved.password || '',
+            remember: !!saved.remember,
             error: null
         };
     }
@@ -47,8 +47,9 @@ class WifiStep extends React.Component {
             this.setState({error: 'Please enter a valid port (1-65535).'});
             return;
         }
+        const peripheralId = host.includes(':') ? `[${host}]:${port}` : `${host}:${port}`;
         this.props.onConnecting(
-            `${host}:${port}`,
+            peripheralId,
             host,
             {
                 host: host,
@@ -78,6 +79,12 @@ class WifiStep extends React.Component {
 
 WifiStep.propTypes = {
     deviceId: PropTypes.string.isRequired,
+    initialConfig: PropTypes.shape({
+        host: PropTypes.string,
+        port: PropTypes.number,
+        password: PropTypes.string,
+        remember: PropTypes.bool
+    }),
     onConnecting: PropTypes.func.isRequired
 };
 

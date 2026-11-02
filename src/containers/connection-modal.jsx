@@ -26,7 +26,8 @@ class ConnectionModal extends React.Component {
             phase: props.vm.getPeripheralIsConnected(props.deviceId) ?
                 PHASES.connected : PHASES.scanning,
             peripheralName: null,
-            errorMessage: null
+            errorMessage: null,
+            lastAttempt: null
         };
         this._lastConnection = null;
     }
@@ -47,6 +48,7 @@ class ConnectionModal extends React.Component {
         const isWebrepl = this.state.device && this.state.device.webreplRequired;
         if (isWebrepl) {
             this._lastConnection = {peripheralConfig: peripheralConfig};
+            this.setState({lastAttempt: peripheralConfig});
             this.props.vm.connectPeripheral(
                 this.props.deviceId,
                 peripheralId,
@@ -144,6 +146,7 @@ class ConnectionModal extends React.Component {
                 errorMessage={this.state.errorMessage}
                 isSerialport={this.state.device && this.state.device.serialportRequired}
                 isWebrepl={this.state.device && this.state.device.webreplRequired}
+                initialConfig={this.state.lastAttempt}
                 isListAll={this.props.isListAll}
                 connectionTipIconURL={this.state.device && this.state.device.connectionTipIconURL}
                 deviceId={this.props.deviceId}
